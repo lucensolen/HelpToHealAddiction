@@ -1,212 +1,116 @@
-/* ----- GLOBAL RESET ----- */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
+// VIEW SWITCHING
+document.addEventListener("DOMContentLoaded", () => {
 
-body {
-  margin: 0;
-  font-family: "Space Grotesk", system-ui, sans-serif;
-  background: radial-gradient(circle at top, #f6ece8 0, #100f12 55%, #050509 100%);
-  color: #f6f1ee;
-  min-height: 100vh;
-  -webkit-font-smoothing: antialiased;
-}
+  const tabButtons = document.querySelectorAll(".nav-tab");
+  const views = document.querySelectorAll(".view");
+  const jumps = document.querySelectorAll("[data-view-jump]");
 
-/* ----- TEXT SMOOTHING ----- */
-h1, h2, h3, h4 {
-  font-weight: 600;
-  letter-spacing: -0.01em;
-}
-
-/* ----- GRAIN LAYER ----- */
-.grain {
-  pointer-events: none;
-  position: fixed;
-  inset: 0;
-  opacity: 0.25;
-  mix-blend-mode: soft-light;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='noStitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
-  z-index: 0;
-}
-
-/* ----- APP LAYOUT ----- */
-.app-shell {
-  position: relative;
-  z-index: 1;
-  max-width: 1050px;
-  margin: 0 auto;
-  padding: 32px 16px 80px;
-}
-
-/* ----- HEADER ----- */
-.site-header {
-  display: flex;
-  flex-direction: column;
-  gap: 22px;
-  margin-bottom: 32px;
-}
-
-.brand {
-  display: flex;
-  gap: 14px;
-  align-items: center;
-}
-
-.brand-mark {
-  width: 44px;
-  height: 44px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.35);
-  background: linear-gradient(140deg, #b03f52, #5b1a25);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: .75rem;
-  text-transform: uppercase;
-  letter-spacing: .12em;
-}
-
-.site-header h1 {
-  margin: 0;
-  font-size: 1.45rem;
-}
-
-.tagline {
-  margin: 3px 0 0;
-  font-size: .9rem;
-  opacity: .8;
-}
-
-/* ----- NAVIGATION TABS ----- */
-.nav-tabs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.nav-tab {
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.16);
-  background: rgba(19,18,27,0.75);
-  color: #fff;
-  font-size: .82rem;
-  padding: 8px 16px;
-  cursor: pointer;
-  backdrop-filter: blur(10px);
-  transition: .15s ease transform, .2s ease background;
-}
-
-.nav-tab.active {
-  background: linear-gradient(90deg, #b03f52, #e4a57a);
-  transform: translateY(-1px);
-  border-color: rgba(255,255,255,0.35);
-}
-
-/* ----- MAIN CONTENT AREA ----- */
-.main {
-  display: flex;
-  flex-direction: column;
-  gap: 22px;
-}
-
-.view {
-  display: none;
-}
-
-.view.active {
-  display: block;
-}
-
-/* ----- PANELS ----- */
-.panel {
-  background: rgba(12, 11, 16, 0.82);
-  border-radius: 18px;
-  padding: 22px 22px 26px;
-  border: 1px solid rgba(255,255,255,0.1);
-  box-shadow: 0 14px 40px rgba(0,0,0,0.45);
-  backdrop-filter: blur(7px);
-}
-
-/* hero sections */
-.hero h2 {
-  margin: 0 0 12px;
-  font-size: 1.38rem;
-}
-
-.hero-text {
-  font-size: .95rem;
-  opacity: .88;
-}
-
-.hero-list {
-  padding-left: 20px;
-  font-size: .9rem;
-  opacity: .92;
-  margin: 10px 0 14px;
-}
-
-.hero-slim h2 {
-  font-size: 1.3rem;
-  margin: 0 0 12px;
-}
-
-/* ----- GRID ----- */
-.grid.two {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
-}
-
-@media(max-width:800px){
-  .grid.two {
-    grid-template-columns: 1fr;
+  function setView(id) {
+    views.forEach(v =>
+      v.classList.toggle("active", v.id === `view-${id}`)
+    );
+    tabButtons.forEach(btn =>
+      btn.classList.toggle("active", btn.dataset.view === id)
+    );
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
-}
 
-/* ----- FORM / OPTIONS ----- */
-.options {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px 12px;
-}
+  tabButtons.forEach(btn =>
+    btn.addEventListener("click", () => setView(btn.dataset.view))
+  );
 
-@media(max-width:640px){
-  .options {
-    grid-template-columns: 1fr;
+  jumps.forEach(btn =>
+    btn.addEventListener("click", () => setView(btn.dataset.viewJump))
+  );
+
+});
+////////////////////////////////////////////////////////////
+
+
+// RESIDUE SCANNER
+const form = document.getElementById("scanner-form");
+const results = document.getElementById("scan-results");
+
+const resNervous = document.getElementById("res-nervous");
+const resState = document.getElementById("res-state");
+const resRelapse = document.getElementById("res-relapse");
+const resMirror = document.getElementById("res-mirror");
+
+form?.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const values = [];
+
+  for (let i = 1; i <= 6; i++) {
+    const selected = form.querySelector(`input[name="q${i}"]:checked`);
+    if (!selected) {
+      alert("Answer all questions honestly. This is for you.");
+      return;
+    }
+    values.push(parseInt(selected.value, 10));
   }
-}
 
-.options label {
-  background: rgba(255,255,255,0.04);
-  padding: 8px 10px;
-  border-radius: 8px;
-  font-size: .82rem;
-  border: 1px solid rgba(255,255,255,0.08);
-}
+  // same scoring logic you had originally:
+  const total = values.reduce((a, b) => a + b, 0);
 
-/* ----- RESULTS ----- */
-.results-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 18px;
-}
+  const nervousScore = values[0] + values[2] + values[4];
+  const stateScore = values[1] + values[3];
+  const relapseScore = values[1] + values[4] + values[5];
 
-@media(max-width:900px){
-  .results-grid {
-    grid-template-columns: 1fr;
+  // Interpretations preserved exactly as-is:
+  /* — (keeping all your original text unchanged) — */
+
+  // Nervous interpretation
+  if (nervousScore <= 5) {
+    resNervous.textContent =
+      "Your nervous system shows low visible residue. That doesn’t mean you’re untouched, but day-to-day you’re not being yanked around by the old cycle.";
+  } else if (nervousScore <= 8) {
+    resNervous.textContent =
+      "There’s a moderate residue in your system. You’re mostly functioning but swing between ‘I’m fine’ and quiet restlessness.";
+  } else {
+    resNervous.textContent =
+      "Your nervous system is still heavily imprinted. Flatness, agitation, or craving intensity are learned patterns, not flaws.";
   }
-}
 
-.result-card {
-  background: rgba(17,17,24,0.88);
-  padding: 14px 16px;
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,0.12);
-}
+  // State interpretation
+  if (stateScore <= 4) {
+    resState.textContent =
+      "You used the drug around your life, not as the core of your identity.";
+  } else if (stateScore <= 6) {
+    resState.textContent =
+      "The drug powered parts of your ‘best self.’ Rebuilding those states clean will be key.";
+  } else {
+    resState.textContent =
+      "Your old peak self and the drug still feel linked. Breaking that story matters.";
+  }
 
-/* ----- UTILITY ----- */
-.hidden {
-  display: none !important;
-}
+  // Relapse interpretation
+  if (relapseScore <= 5) {
+    resRelapse.textContent =
+      "Relapse gravity looks low — but don’t get overconfident.";
+  } else if (relapseScore <= 8) {
+    resRelapse.textContent =
+      "There’s a subtle pull under stress. That’s your signal.";
+  } else {
+    resRelapse.textContent =
+      "The pull is strong. This is a fork in the road and where support helps.";
+  }
+
+  // Mirror
+  let mirror = "";
+  if (total <= 11) {
+    mirror =
+      "You’ve done more work than most. But you know there are blind spots.";
+  } else if (total <= 17) {
+    mirror =
+      "You’re in the middle space — not lost, not free. This is the perfect time to move.";
+  } else {
+    mirror =
+      "You’re sober, but the drug still has a seat in your inner council.";
+  }
+
+  resMirror.textContent = mirror;
+
+  results.classList.remove("hidden");
+  results.scrollIntoView({ behavior: "smooth", block: "start" });
+});
