@@ -1,116 +1,78 @@
-// VIEW SWITCHING
-document.addEventListener("DOMContentLoaded", () => {
+/* TAB SWITCHING ----------------------------------------------*/
+const tabs = document.querySelectorAll('.nav-tab');
+const views = document.querySelectorAll('.view');
+const jumpers = document.querySelectorAll('[data-view-jump]');
 
-  const tabButtons = document.querySelectorAll(".nav-tab");
-  const views = document.querySelectorAll(".view");
-  const jumps = document.querySelectorAll("[data-view-jump]");
+function switchView(id) {
+  views.forEach(v => v.classList.remove('active'));
+  tabs.forEach(t => t.classList.remove('active'));
 
-  function setView(id) {
-    views.forEach(v =>
-      v.classList.toggle("active", v.id === `view-${id}`)
-    );
-    tabButtons.forEach(btn =>
-      btn.classList.toggle("active", btn.dataset.view === id)
-    );
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
+  document.querySelector(`#view-${id}`).classList.add('active');
+  document.querySelector(`[data-view="${id}"]`).classList.add('active');
 
-  tabButtons.forEach(btn =>
-    btn.addEventListener("click", () => setView(btn.dataset.view))
-  );
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 
-  jumps.forEach(btn =>
-    btn.addEventListener("click", () => setView(btn.dataset.viewJump))
-  );
-
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    switchView(tab.dataset.view);
+  });
 });
-////////////////////////////////////////////////////////////
 
+jumpers.forEach(btn => {
+  btn.addEventListener('click', () => {
+    switchView(btn.dataset.viewJump);
+  });
+});
 
-// RESIDUE SCANNER
-const form = document.getElementById("scanner-form");
-const results = document.getElementById("scan-results");
+/* SCANNER LOGIC ----------------------------------------------*/
+const form = document.querySelector('#scanner-form');
+const resultsBox = document.querySelector('#scan-results');
 
-const resNervous = document.getElementById("res-nervous");
-const resState = document.getElementById("res-state");
-const resRelapse = document.getElementById("res-relapse");
-const resMirror = document.getElementById("res-mirror");
-
-form?.addEventListener("submit", (e) => {
+form.addEventListener('submit', e => {
   e.preventDefault();
 
-  const values = [];
-
+  const data = {};
   for (let i = 1; i <= 6; i++) {
-    const selected = form.querySelector(`input[name="q${i}"]:checked`);
-    if (!selected) {
-      alert("Answer all questions honestly. This is for you.");
-      return;
-    }
-    values.push(parseInt(selected.value, 10));
+    const q = form.querySelector(`input[name="q${i}"]:checked`);
+    data[`q${i}`] = q ? Number(q.value) : 0;
   }
 
-  // same scoring logic you had originally:
-  const total = values.reduce((a, b) => a + b, 0);
+  const sum = Object.values(data).reduce((a, b) => a + b, 0);
 
-  const nervousScore = values[0] + values[2] + values[4];
-  const stateScore = values[1] + values[3];
-  const relapseScore = values[1] + values[4] + values[5];
+  // Nervous system residue = q3 + q6
+  const nervous = data.q3 + data.q6;
 
-  // Interpretations preserved exactly as-is:
-  /* — (keeping all your original text unchanged) — */
+  // State dependency = q1 + q4
+  const state = data.q1 + data.q4;
 
-  // Nervous interpretation
-  if (nervousScore <= 5) {
-    resNervous.textContent =
-      "Your nervous system shows low visible residue. That doesn’t mean you’re untouched, but day-to-day you’re not being yanked around by the old cycle.";
-  } else if (nervousScore <= 8) {
-    resNervous.textContent =
-      "There’s a moderate residue in your system. You’re mostly functioning but swing between ‘I’m fine’ and quiet restlessness.";
-  } else {
-    resNervous.textContent =
-      "Your nervous system is still heavily imprinted. Flatness, agitation, or craving intensity are learned patterns, not flaws.";
-  }
+  // Relapse gravity = q2 + q5
+  const relapse = data.q2 + data.q5;
 
-  // State interpretation
-  if (stateScore <= 4) {
-    resState.textContent =
-      "You used the drug around your life, not as the core of your identity.";
-  } else if (stateScore <= 6) {
-    resState.textContent =
-      "The drug powered parts of your ‘best self.’ Rebuilding those states clean will be key.";
-  } else {
-    resState.textContent =
-      "Your old peak self and the drug still feel linked. Breaking that story matters.";
-  }
-
-  // Relapse interpretation
-  if (relapseScore <= 5) {
-    resRelapse.textContent =
-      "Relapse gravity looks low — but don’t get overconfident.";
-  } else if (relapseScore <= 8) {
-    resRelapse.textContent =
-      "There’s a subtle pull under stress. That’s your signal.";
-  } else {
-    resRelapse.textContent =
-      "The pull is strong. This is a fork in the road and where support helps.";
-  }
-
-  // Mirror
+  // Mirror Back
   let mirror = "";
-  if (total <= 11) {
-    mirror =
-      "You’ve done more work than most. But you know there are blind spots.";
-  } else if (total <= 17) {
-    mirror =
-      "You’re in the middle space — not lost, not free. This is the perfect time to move.";
-  } else {
-    mirror =
-      "You’re sober, but the drug still has a seat in your inner council.";
-  }
+  if (sum <= 8) mirror = "You’ve walked away clean, and your system mostly knows it. There’s residue, but not control.";
+  else if (sum <= 14) mirror = "You’re sober, but parts of the high-version-of-you still live in your nervous system.";
+  else if (sum <= 20) mirror = "Your identity, energy, or relationships still run on patterns the drug taught you.";
+  else mirror = "You're sober, but the drug’s emotional architecture still shapes your choices.";
 
-  resMirror.textContent = mirror;
+  document.querySelector('#res-nervous').textContent =
+    nervous <= 4 ? "Low residue — you stabilised well." :
+    nervous <= 6 ? "Moderate residue — your system still runs on the old tempo." :
+                    "High residue — your energy still follows the high/crash rhythm.";
 
-  results.classList.remove("hidden");
-  results.scrollIntoView({ behavior: "smooth", block: "start" });
+  document.querySelector('#res-state').textContent =
+    state <= 4 ? "You rebuilt most of your identity sober." :
+    state <= 6 ? "Some of your old 'best self' still feels linked to the chemistry." :
+                  "Your high-version-of-you became a template your sober self still chases.";
+
+  document.querySelector('#res-relapse').textContent =
+    relapse <= 4 ? "Relapse gravity is weak — the pull doesn’t own you." :
+    relapse <= 6 ? "You feel the old pull under stress, even if you don’t act on it." :
+                    "The emotional pull is still strong when life squeezes you.";
+
+  document.querySelector('#res-mirror').textContent = mirror;
+
+  resultsBox.classList.remove('hidden');
+  resultsBox.scrollIntoView({ behavior: 'smooth' });
 });
