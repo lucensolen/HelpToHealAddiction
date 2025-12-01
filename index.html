@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HelpToHeal // After The High</title>
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="grain"></div>
+
+  <div class="app-shell">
+    <header class="site-header">
+      <div class="brand">
+        <div class="brand-mark">H2H</div>
+        <div>
+          <h1>HelpToHeal · After The High</h1>
+          <p class="tagline">For people who’ve “stopped” — but know something still isn’t right.</p>
+        </div>
+      </div>
+
+      <nav class="nav-tabs">
+        <button class="nav-tab active" data-view="overview">1 · Why You're Here</button>
+        <button class="nav-tab" data-view="tool">2 · Residue Scanner (Free Tool)</button>
+        <button class="nav-tab" data-view="deep-dive">3 · What The Drug Really Did</button>
+        <button class="nav-tab" data-view="next-steps">4 · Next Moves</button>
+      </nav>
+    </header>
+
+    <main class="main">
+
+      <!-- OVERVIEW VIEW -->
+      <section id="view-overview" class="view active">
+        <div class="panel hero">
+          <h2>“You’ve stopped. So why does it still feel like it owns part of you?”</h2>
+          <p class="hero-text">
+            This space isn’t for people still partying. It’s for the ones who <strong>walked away</strong>,
+            swear they’re “done with it,” but quietly know:
+          </p>
+          <ul class="hero-list">
+            <li>You don’t feel as alive, sharp, or driven as the “high version” of you.</li>
+            <li>You still think about the edge it gave you — especially when life gets heavy.</li>
+            <li>You miss the <strong>state</strong> more than you miss the scenes or people.</li>
+            <li>You’ve “moved on”, but parts of your personality were built on that chemical.</li>
+          </ul>
+          <p class="hero-text">
+            Most rehab and “I stopped” stories focus on the obvious: not using. <br/>
+            <strong>This build is about what’s left behind in your nervous system, identity, and choices — long after the last line.</strong>
+          </p>
+        </div>
+
+        <div class="grid two">
+          <div class="panel">
+            <h3>What this page is <span class="pill pill-soft">for</span></h3>
+            <ul class="bullet">
+              <li>People who used that drug and have stopped — weeks, months, or years ago.</li>
+              <li>People who are doing “fine” on paper, but feel flat, restless, or half-present.</li>
+              <li>People who used it for <strong>performance</strong> — confidence, focus, charm, status.</li>
+              <li>People who want a brutally honest mirror, not a lecture.</li>
+            </ul>
+          </div>
+
+          <div class="panel">
+            <h3>What this page is <span class="pill pill-warn">not</span></h3>
+            <ul class="bullet">
+              <li>Not a moral sermon. You already know the risks.</li>
+              <li>Not a medical replacement. This is <strong>education + reflection</strong>, not treatment.</li>
+              <li>Not another “just stay strong” cliché generator.</li>
+              <li>Not for people who want to romanticise it. This strips the glamour clean off.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="panel panel-accent">
+          <h3>The quiet truth</h3>
+          <p>
+            Stopping the drug is <strong>step one</strong>. Reclaiming the <em>parts of you it pretended to be</em> — confidence, focus,
+            social spark, drive — is the real work.
+          </p>
+          <p>
+            The free tool in the next section isn’t here to scare you. It’s here to prove, by your own answers,
+            that there’s more going on under the surface than “I don’t do it anymore.”
+          </p>
+          <button class="primary-btn" data-view-jump="tool">
+            Go to the Residue Scanner
+          </button>
+        </div>
+      </section>
+
+      <!-- TOOL VIEW -->
+      <section id="view-tool" class="view">
+        <div class="panel hero-slim">
+          <h2>The Residue Scanner</h2>
+          <p class="hero-text">
+            This free tool looks at three things the drug leaves behind, even when you’re “clean”:
+          </p>
+          <ul class="hero-list small">
+            <li><strong>Nervous system residue</strong> – how your body still runs like you’re on-call for the next hit.</li>
+            <li><strong>State dependency</strong> – how much of your identity was built on the “high version” of you.</li>
+            <li><strong>Relapse gravity</strong> – how strong the invisible pull is when life squeezes you.</li>
+          </ul>
+          <p class="hero-text">
+            Answer honestly. Nobody sees this but you.
+          </p>
+        </div>
+
+        <form id="scanner-form" class="panel form">
+          <div class="question">
+            <label>1. How often do you think about that period of your life with the drug?</label>
+            <div class="options">
+              <label><input type="radio" name="q1" value="1"> Hardly ever</label>
+              <label><input type="radio" name="q1" value="2"> Sometimes</label>
+              <label><input type="radio" name="q1" value="3"> Most weeks</label>
+              <label><input type="radio" name="q1" value="4"> Most days</label>
+            </div>
+          </div>
+
+          <div class="question">
+            <label>2. When things get stressful, what’s your <em>first</em> instinctive thought?</label>
+            <div class="options">
+              <label><input type="radio" name="q2" value="1"> Just grind through it sober.</label>
+              <label><input type="radio" name="q2" value="2"> I distract myself with work / phone / food.</label>
+              <label><input type="radio" name="q2" value="3"> I remember how sharp / powerful I felt back then.</label>
+              <label><input type="radio" name="q2" value="4"> I actively miss the high version of me.</label>
+            </div>
+          </div>
+
+          <div class="question">
+            <label>3. Compared to before you ever used it, how does your energy feel now?</label>
+            <div class="options">
+              <label><input type="radio" name="q3" value="1"> Pretty similar, steady.</label>
+              <label><input type="radio" name="q3" value="2"> Flatter, but manageable.</label>
+              <label><input type="radio" name="q3" value="3"> Flat unless something intense is happening.</label>
+              <label><input type="radio" name="q3" value="4"> I feel half-alive unless I’m really pushed.</label>
+            </div>
+          </div>
+
+          <div class="question">
+            <label>4. Be honest: how much of your old “best self” was actually the drug?</label>
+            <div class="options">
+              <label><input type="radio" name="q4" value="1"> Barely. I was mostly myself.</label>
+              <label><input type="radio" name="q4" value="2"> It gave me a bit of edge sometimes.</label>
+              <label><input type="radio" name="q4" value="3"> It powered big parts of my confidence / drive.</label>
+              <label><input type="radio" name="q4" value="4"> Without it, I felt like a different person.</label>
+            </div>
+          </div>
+
+          <div class="question">
+            <label>5. When you see people still using it on nights out or online, your body response is:</label>
+            <div class="options">
+              <label><input type="radio" name="q5" value="1"> Nothing. Just information.</label>
+              <label><input type="radio" name="q5" value="2"> Mild discomfort / annoyance.</label>
+              <label><input type="radio" name="q5" value="3"> A mix of pull and disgust.</label>
+              <label><input type="radio" name="q5" value="4"> A sharp pull. I feel it in my chest / gut.</label>
+            </div>
+          </div>
+
+          <div class="question">
+            <label>6. In close relationships now, do you feel:</label>
+            <div class="options">
+              <label><input type="radio" name="q6" value="1"> Present, steady, emotionally available.</label>
+              <label><input type="radio" name="q6" value="2"> Sometimes distant / distracted.</label>
+              <label><input type="radio" name="q6" value="3"> Often half-present, like my mind is elsewhere.</label>
+              <label><input type="radio" name="q6" value="4"> Kind of hollow, like I’m watching myself.</label>
+            </div>
+          </div>
+
+          <button type="submit" class="primary-btn full">Run Scan</button>
+          <p class="fine-print">This is not diagnosis. It’s a mirror.</p>
+        </form>
+
+        <section id="scan-results" class="panel results hidden">
+          <h3>Your Scan Results</h3>
+          <div class="results-grid">
+            <div class="result-card">
+              <h4>Nervous System Residue</h4>
+              <p id="res-nervous"></p>
+            </div>
+            <div class="result-card">
+              <h4>State Dependency</h4>
+              <p id="res-state"></p>
+            </div>
+            <div class="result-card">
+              <h4>Relapse Gravity</h4>
+              <p id="res-relapse"></p>
+            </div>
+          </div>
+
+          <div class="panel panel-sub">
+            <h4>Mirror Back</h4>
+            <p id="res-mirror"></p>
+          </div>
+
+          <div class="panel panel-next">
+            <h4>What to read next</h4>
+            <p>
+              The next view breaks down, in plain language, what this drug actually did to your reward system,
+              your sense of self, and your relationships — <strong>even if you never touch it again.</strong>
+            </p>
+            <button class="secondary-btn" data-view-jump="deep-dive">
+              Go to “What The Drug Really Did”
+            </button>
+          </div>
+        </section>
+      </section>
+
+      <!-- DEEP DIVE VIEW -->
+      <section id="view-deep-dive" class="view">
+        <div class="panel hero-slim">
+          <h2>What The Drug Really Did (Beyond “Getting You High”)</h2>
+          <p class="hero-text">
+            You already know the obvious parts: heart, nose, money, risk. This is about the parts nobody explained —
+            the ones you feel now, sober, but can’t quite name.
+          </p>
+        </div>
+
+        <div class="panel">
+          <h3>1. It didn’t just change how you felt. It rewired what your brain calls “important.”</h3>
+          <p>
+            That drug hijacks your brain’s <strong>salience system</strong> — the bit that decides what matters.
+            On it, intense, fast, risky, ego-heavy situations light up as “important”. Quiet, slow, ordinary moments go dim.
+          </p>
+          <p>
+            When you stop, you don’t just lose the high. You’re left with a brain that’s trained to treat
+            normal life as “not enough.” That’s why things feel flat, even if everything is technically okay.
+          </p>
+        </div>
+
+        <div class="panel">
+          <h3>2. It helped you build a fake “best self” — then took it away.</h3>
+          <p>
+            Many people didn’t use it “just for fun.” They used it to become a version of themselves they thought
+            they couldn’t be sober: sharper, quicker, more confident, more ruthless, more social.
+          </p>
+          <p>
+            The problem: your brain bonded with that version of you. It quietly labelled it as
+            <strong>“who I am when I’m finally enough.”</strong>
+          </p>
+          <p>
+            When you stop, your nervous system grieves that counterfeit identity — even if consciously you’re proud to be done.
+          </p>
+        </div>
+
+        <div class="panel">
+          <h3>3. It distorted how you read other people.</h3>
+          <p>
+            On that drug, you start seeing people less as humans and more as <strong>stimulus sources</strong>:
+            validation, status, sex, power, attention, energy. Relationships shift from mutual connection
+            to subtle extraction, performance, and gaming.
+          </p>
+          <p>
+            After stopping, some of that lens remains. You might feel disconnected, mistrustful, or weirdly
+            uninterested in people unless they’re intense. That isn’t “just your personality.” That’s residue.
+          </p>
+        </div>
+
+        <div class="panel panel-accent">
+          <h3>4. It trained your body to crave extremes.</h3>
+          <p>
+            Even if you never touch it again, your nervous system remembers the pattern:
+            <strong>flat → pressure → high intensity → crash → repeat</strong>.
+          </p>
+          <p>
+            So you may now unconsciously chase the same cycle through:
+          </p>
+          <ul class="bullet">
+            <li>work overload and burnout,</li>
+            <li>fights / drama,</li>
+            <li>risk, gambling, or impulsive decisions,</li>
+            <li>doom-scrolling or porn or anything high-stimulus.</li>
+          </ul>
+          <p>
+            That’s not “random bad choices.” It’s your body recreating the old rhythm without the white powder.
+          </p>
+        </div>
+
+        <div class="panel panel-sub">
+          <h3>5. So no — stopping didn’t mean it left you completely.</h3>
+          <p>
+            You can be fully sober and still be:
+          </p>
+          <ul class="bullet">
+            <li>running a life built on its logic,</li>
+            <li>missing the edge more than you admit,</li>
+            <li>unconsciously attracted to people who still use it,</li>
+            <li>stuck in its emotional architecture without realising.</li>
+          </ul>
+          <p>
+            That’s the part this page is designed to name — not to shame you, but to give you your mind back.
+          </p>
+        </div>
+
+        <div class="panel panel-next">
+          <h3>Ready to move from “I stopped” to “It doesn’t own me at all”?</h3>
+          <p>
+            The next section gives you a simple, reality-based map for the next few years:
+            how to rebuild your nervous system, reclaim the states it borrowed, and
+            stop living in its shadow.
+          </p>
+          <button class="secondary-btn" data-view-jump="next-steps">
+            Go to Next Moves
+          </button>
+        </div>
+      </section>
+
+      <!-- NEXT STEPS VIEW -->
+      <section id="view-next-steps" class="view">
+        <div class="panel hero-slim">
+          <h2>Next Moves: From “I Stopped” to “It’s Over”</h2>
+          <p class="hero-text">
+            This isn’t a magic fix. It’s a realistic map of what actually helps over the next 6–36 months —
+            the time window most people don’t plan for.
+          </p>
+        </div>
+
+        <div class="grid two">
+          <div class="panel">
+            <h3>Phase 1 · Stabilise the body</h3>
+            <p>
+              You can’t out-think a fried nervous system. Step one is boring, and that’s why most people skip it:
+            </p>
+            <ul class="bullet">
+              <li>Regular sleep windows (even if quality is bad at first).</li>
+              <li>Real food, actual water, not just caffeine and sugar.</li>
+              <li>Movement that doesn’t chase a high — walks, light training, not self-destruction.</li>
+              <li>Basic medical check-in if you can access it.</li>
+            </ul>
+            <p class="fine-print">
+              This page is not medical advice — if you’re struggling heavily, talk to a qualified professional.
+            </p>
+          </div>
+
+          <div class="panel">
+            <h3>Phase 2 · Reclaim the states it faked</h3>
+            <p>
+              List the things the drug gave you:
+            </p>
+            <ul class="bullet">
+              <li>Confidence?</li>
+              <li>Social ease?</li>
+              <li>Focus?</li>
+              <li>Drive?</li>
+              <li>Sexual edge?</li>
+            </ul>
+            <p>
+              Then build <strong>one</strong> of those clean, slowly. Not all at once. One.
+              When you can access that state without chemistry, the hold breaks more than you expect.
+            </p>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>Phase 3 · Rewrite your identity story</h3>
+          <p>
+            The drug isn’t just a chapter. For a while, it was a <strong>co-author</strong> of your personality.
+            So you’ll need a new story about who you are now:
+          </p>
+          <ul class="bullet">
+            <li>Who are you when you’re fully sober and fully expressed?</li>
+            <li>What kind of human do your kids / people around you actually need?</li>
+            <li>What kind of power feels clean, not frantic?</li>
+          </ul>
+          <p>
+            You don’t have to answer all of that today. But ignoring it is how people stay half-haunted for decades.
+          </p>
+        </div>
+
+        <div class="panel panel-accent">
+          <h3>When should you get more help?</h3>
+          <p>
+            If any of these are true, this page is just a starting point, not enough on its own:
+          </p>
+          <ul class="bullet">
+            <li>You’re having strong cravings or using other things to replace it.</li>
+            <li>You can’t function at work or home without feeling on the edge.</li>
+            <li>Your mood is collapsing — heavy depression, intense anxiety, or thoughts of self-harm.</li>
+            <li>You’re hiding more from the people who care about you.</li>
+          </ul>
+          <p>
+            You’re not weak for getting help. You’re taking back control from a molecule
+            that doesn’t care if you live or die.
+          </p>
+        </div>
+
+        <div class="panel panel-next">
+          <h3>Where this fits in HelpToHeal</h3>
+          <p>
+            This whole build is the <strong>free front gate</strong>: a clean mirror and a nervous-system map.
+            Deeper work — whether with therapists, groups, or future HelpToHeal modules —
+            sits behind this kind of honesty.
+          </p>
+          <p>
+            You’re already ahead of most people just by reading this sober and letting it land.
+          </p>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+  </html>
