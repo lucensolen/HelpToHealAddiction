@@ -1,111 +1,212 @@
-// Simple SPA view switching
-const tabButtons = document.querySelectorAll(".nav-tab");
-const views = document.querySelectorAll(".view");
-const jumpButtons = document.querySelectorAll("[data-view-jump]");
-
-function setView(id) {
-  views.forEach(v => v.classList.toggle("active", v.id === `view-${id}`));
-  tabButtons.forEach(btn => btn.classList.toggle("active", btn.dataset.view === id));
-  window.scrollTo({ top: 0, behavior: "smooth" });
+/* ----- GLOBAL RESET ----- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-tabButtons.forEach(btn => {
-  btn.addEventListener("click", () => setView(btn.dataset.view));
-});
+body {
+  margin: 0;
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  background: radial-gradient(circle at top, #f6ece8 0, #100f12 55%, #050509 100%);
+  color: #f6f1ee;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
 
-jumpButtons.forEach(btn => {
-  btn.addEventListener("click", () => {
-    const id = btn.getAttribute("data-view-jump");
-    setView(id);
-  });
-});
+/* ----- TEXT SMOOTHING ----- */
+h1, h2, h3, h4 {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
 
-// Residue Scanner logic
-const form = document.getElementById("scanner-form");
-const resultsSection = document.getElementById("scan-results");
-const resNervous = document.getElementById("res-nervous");
-const resState = document.getElementById("res-state");
-const resRelapse = document.getElementById("res-relapse");
-const resMirror = document.getElementById("res-mirror");
+/* ----- GRAIN LAYER ----- */
+.grain {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  opacity: 0.25;
+  mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='noStitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  z-index: 0;
+}
 
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
+/* ----- APP LAYOUT ----- */
+.app-shell {
+  position: relative;
+  z-index: 1;
+  max-width: 1050px;
+  margin: 0 auto;
+  padding: 32px 16px 80px;
+}
 
-  // Collect answers
-  const values = [];
-  for (let i = 1; i <= 6; i++) {
-    const checked = form.querySelector(`input[name="q${i}"]:checked`);
-    if (!checked) {
-      alert("Answer all questions honestly. This is for you, not anyone else.");
-      return;
-    }
-    values.push(parseInt(checked.value, 10));
+/* ----- HEADER ----- */
+.site-header {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  margin-bottom: 32px;
+}
+
+.brand {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.brand-mark {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.35);
+  background: linear-gradient(140deg, #b03f52, #5b1a25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .75rem;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+}
+
+.site-header h1 {
+  margin: 0;
+  font-size: 1.45rem;
+}
+
+.tagline {
+  margin: 3px 0 0;
+  font-size: .9rem;
+  opacity: .8;
+}
+
+/* ----- NAVIGATION TABS ----- */
+.nav-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.nav-tab {
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.16);
+  background: rgba(19,18,27,0.75);
+  color: #fff;
+  font-size: .82rem;
+  padding: 8px 16px;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  transition: .15s ease transform, .2s ease background;
+}
+
+.nav-tab.active {
+  background: linear-gradient(90deg, #b03f52, #e4a57a);
+  transform: translateY(-1px);
+  border-color: rgba(255,255,255,0.35);
+}
+
+/* ----- MAIN CONTENT AREA ----- */
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.view {
+  display: none;
+}
+
+.view.active {
+  display: block;
+}
+
+/* ----- PANELS ----- */
+.panel {
+  background: rgba(12, 11, 16, 0.82);
+  border-radius: 18px;
+  padding: 22px 22px 26px;
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 14px 40px rgba(0,0,0,0.45);
+  backdrop-filter: blur(7px);
+}
+
+/* hero sections */
+.hero h2 {
+  margin: 0 0 12px;
+  font-size: 1.38rem;
+}
+
+.hero-text {
+  font-size: .95rem;
+  opacity: .88;
+}
+
+.hero-list {
+  padding-left: 20px;
+  font-size: .9rem;
+  opacity: .92;
+  margin: 10px 0 14px;
+}
+
+.hero-slim h2 {
+  font-size: 1.3rem;
+  margin: 0 0 12px;
+}
+
+/* ----- GRID ----- */
+.grid.two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+@media(max-width:800px){
+  .grid.two {
+    grid-template-columns: 1fr;
   }
+}
 
-  // Basic scoring
-  const total = values.reduce((a, b) => a + b, 0);
+/* ----- FORM / OPTIONS ----- */
+.options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 12px;
+}
 
-  // Rough axes:
-  // nervous system residue: q1, q3, q5
-  const nervousScore = values[0] + values[2] + values[4];
-
-  // state dependency: q2, q4
-  const stateScore = values[1] + values[3];
-
-  // relapse gravity: q2, q5, q6
-  const relapseScore = values[1] + values[4] + values[5];
-
-  // Interpret nervous
-  if (nervousScore <= 5) {
-    resNervous.textContent =
-      "Your nervous system shows low visible residue. That doesn’t mean you’re untouched, but day-to-day you’re not being yanked around by the old cycle. Keep protecting your sleep, food, and baseline — that’s your actual shield.";
-  } else if (nervousScore <= 8) {
-    resNervous.textContent =
-      "There’s a moderate residue in your system. You’re mostly functioning, but you likely swing between ‘I’m fine’ and quiet restlessness or flatness. Your body remembers the old rhythm. Gently rebuilding a slower, steadier one will matter more than any mindset hack.";
-  } else {
-    resNervous.textContent =
-      "Your nervous system is still heavily imprinted by that period. Flatness, agitation, or craving high-intensity situations are not personality flaws; they’re learned patterns. You’re not weak — you’re wired for extremes. That wiring can be changed, but not by willpower alone.";
+@media(max-width:640px){
+  .options {
+    grid-template-columns: 1fr;
   }
+}
 
-  // Interpret state
-  if (stateScore <= 4) {
-    resState.textContent =
-      "You used the drug around your life, not as the core of your identity. That’s good news. But check carefully: are there still situations where you secretly believe you’d perform ‘better’ with the old edge?";
-  } else if (stateScore <= 6) {
-    resState.textContent =
-      "The drug powered recognisable parts of your ‘best self.’ You may unconsciously compare your sober self against that counterfeit version. This is where real recovery starts: rebuilding confidence, focus, and energy clean, one channel at a time.";
-  } else {
-    resState.textContent =
-      "Your old peak self and the drug are still entangled in your mind. Some part of you believes that the highest version of you lived in that era. That belief — not the substance itself — is what keeps the door open. Breaking that story is as important as staying away from the powder.";
+.options label {
+  background: rgba(255,255,255,0.04);
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: .82rem;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+/* ----- RESULTS ----- */
+.results-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 18px;
+}
+
+@media(max-width:900px){
+  .results-grid {
+    grid-template-columns: 1fr;
   }
+}
 
-  // Interpret relapse
-  if (relapseScore <= 5) {
-    resRelapse.textContent =
-      "Right now, relapse gravity looks low. That doesn’t mean ‘invincible’, but your instinct under pressure isn’t to run back to it. Respect that — and don’t get cocky. Overconfidence has dragged many people back in after years away.";
-  } else if (relapseScore <= 8) {
-    resRelapse.textContent =
-      "There’s a subtle pull when life gets heavy. You might not be planning to go back, but the ‘what if I…’ thought still quietly exists. That thought is the early warning siren. Treat it seriously, not dramatically.";
-  } else {
-    resRelapse.textContent =
-      "The pull is strong. You may be white-knuckling sobriety or replacing the drug with other extremes. This is the point where getting structured help or support is not overkill — it’s strategy. You’re not past saving; you’re at a fork.";
-  }
+.result-card {
+  background: rgba(17,17,24,0.88);
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.12);
+}
 
-  // Mirror paragraph based on total
-  let mirror = "";
-  if (total <= 11) {
-    mirror =
-      "You’ve done more work than most, and it shows. But the fact you’re here, reading this, says you know there are still blind spots. Use this as confirmation, not condemnation: there are layers of the story you haven’t explored yet — and that’s exactly where your next level of freedom sits.";
-  } else if (total <= 17) {
-    mirror =
-      "You’re in the middle space — not lost, not fully free. You’ve stopped the visible behaviour, but parts of your mind, body, and relationships still orbit the old gravity. This is the perfect time to move, before stress or boredom start writing the script for you.";
-  } else {
-    mirror =
-      "You’re out, but the drug still has a seat in your inner council. It shows up as craving, nostalgia, attraction to people who still use, or cycles of chaos in other areas. This is not a failure. It’s the clearest possible signal that you deserve more than just ‘not using’ as a finish line.";
-  }
-
-  resMirror.textContent = mirror;
-
-  resultsSection.classList.remove("hidden");
-  resultsSection.scrollIntoView({ behavior: "smooth", block: "start" });
-});
+/* ----- UTILITY ----- */
+.hidden {
+  display: none !important;
+}
